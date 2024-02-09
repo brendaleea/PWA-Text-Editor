@@ -25,6 +25,31 @@ warmStrategyCache({
 });
 
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
-
+const matchCallback = ({ request }) => {
+  console.log(request);
+  return (
+   
+    request.destination === 'style' ||
+    
+    request.destination === 'script' ||
+   
+    request.destination === 'worker'
+  );
+};
+const cacheName = "asset-cache"
 // TODO: Implement asset caching
-registerRoute();
+registerRoute(
+  matchCallback,
+  new StaleWhileRevalidate({
+    cacheName,
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 60,
+        maxAgeSeconds: 30 * 24 * 60 * 60, 
+      }),
+    ],
+  })
+);
