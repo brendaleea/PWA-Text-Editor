@@ -1,6 +1,6 @@
 # PWA-Text-Editor
 ## Name
-Password Generator
+PWA-Text-Editor
 
 
 ## Description
