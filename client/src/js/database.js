@@ -27,12 +27,12 @@ export const getDb = async () => {
   console.log('getDb call');
   const connectiondb = await openDB('jate', 1);
   const objStore = connectiondb.transaction('jate', 'readonly').objectStore('jate');
-  const output = await objStore.getAll();
+  const output = await objStore.get(1);
   console.log('get all result', output);
-  if(!output){
-    return output.value;
-  }
-  return output;
+  // if(!output){
+  //   return output.value;
+  // }
+  return output?.value; 
 };
 
 initdb();
